@@ -12,15 +12,8 @@ function App() {
   var isChrome = userAgentString.indexOf("Chrome") > -1;
 
   // Detect Safari
-  let safariAgent =
-    /constructor/i.test(window.HTMLElement.toString()) ||
-    (function (p) {
-      return p.toString() === "[object SafariRemoteNotification]";
-    })(
-      // @ts-ignore
-      !window["safari"] || // @ts-ignore
-        (typeof safari !== "undefined" && window["safari"].pushNotification)
-    );
+  const ua = navigator.userAgent;
+  const isSafari = /^((?!android).)*safari/i.test(navigator.userAgent);
 
   // Detect Firefox
   let firefoxAgent = userAgentString.indexOf("Firefox") > -1;
@@ -36,8 +29,9 @@ function App() {
         </a>
       </div>
       <h1>
+        userAgentString: {userAgentString} <br />
         isChrome: {isChrome.toString()} <br />
-        safariAgent: {safariAgent.toString()} <br />
+        isSafari: {isSafari.toString()} <br />
         firefoxAgent: {firefoxAgent.toString()} <br />
       </h1>
     </div>
