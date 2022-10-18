@@ -6,16 +6,19 @@ function App() {
   const [count, setCount] = useState(0);
 
   const userAgentString = navigator.userAgent;
+  const ua = navigator.userAgent;
 
   // Detect Chrome
-
-  var isChrome =
-    userAgentString.indexOf("Chrome") > -1 || userAgentString.includes("CriOS");
+  var isChrome = ua.indexOf("Chrome") > -1 || ua.includes("CriOS");
 
   // Detect Safari
-  const ua = navigator.userAgent;
-  const isSafari =
-    /^((?!android).)*safari/i.test(navigator.userAgent) && !isChrome;
+  const isSafari = /^((?!android).)*safari/i.test(ua) && !isChrome;
+
+  // Detect Mobile
+  const isMobile =
+    /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+      ua
+    );
 
   return (
     <div className="App">
@@ -31,6 +34,7 @@ function App() {
         {/* userAgentString: {userAgentString} <br /> */}
         isChrome: {isChrome.toString()} <br />
         isSafari: {isSafari.toString()} <br />
+        isMobile: {isMobile.toString()} <br />
         {/* {`userAgentString.includes("CriOS"): `} :{" "}
         {userAgentString.includes("CriOS").toString()} */}
       </h1>
