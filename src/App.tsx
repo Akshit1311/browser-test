@@ -8,16 +8,22 @@ function App() {
   const userAgentString = navigator.userAgent;
 
   // Detect Chrome
-  let chromeAgent = userAgentString.indexOf("Chrome") > -1;
+
+  var isChrome = userAgentString.indexOf("Chrome") > -1;
 
   // Detect Safari
-  let safariAgent = userAgentString.indexOf("Safari") > -1;
+  let safariAgent =
+    /constructor/i.test(window.HTMLElement.toString()) ||
+    (function (p) {
+      return p.toString() === "[object SafariRemoteNotification]";
+    })(
+      // @ts-ignore
+      !window["safari"] || // @ts-ignore
+        (typeof safari !== "undefined" && window["safari"].pushNotification)
+    );
 
   // Detect Firefox
   let firefoxAgent = userAgentString.indexOf("Firefox") > -1;
-
-  // Discard Safari since it also matches Chrome
-  if (chromeAgent && safariAgent) safariAgent = false;
 
   return (
     <div className="App">
@@ -30,7 +36,7 @@ function App() {
         </a>
       </div>
       <h1>
-        chromeAgent: {chromeAgent.toString()} <br />
+        isChrome: {isChrome.toString()} <br />
         safariAgent: {safariAgent.toString()} <br />
         firefoxAgent: {firefoxAgent.toString()} <br />
       </h1>
