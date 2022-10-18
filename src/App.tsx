@@ -9,14 +9,13 @@ function App() {
 
   // Detect Chrome
 
-  var isChrome = userAgentString.indexOf("Chrome") > -1;
+  var isChrome =
+    userAgentString.indexOf("Chrome") > -1 || userAgentString.includes("CriOS");
 
   // Detect Safari
   const ua = navigator.userAgent;
-  const isSafari = /^((?!android).)*safari/i.test(navigator.userAgent);
-
-  // Detect Firefox
-  let firefoxAgent = userAgentString.indexOf("Firefox") > -1;
+  const isSafari =
+    /^((?!android).)*safari/i.test(navigator.userAgent) && !isChrome;
 
   return (
     <div className="App">
@@ -29,10 +28,11 @@ function App() {
         </a>
       </div>
       <h1>
-        userAgentString: {userAgentString} <br />
+        {/* userAgentString: {userAgentString} <br /> */}
         isChrome: {isChrome.toString()} <br />
         isSafari: {isSafari.toString()} <br />
-        firefoxAgent: {firefoxAgent.toString()} <br />
+        {/* {`userAgentString.includes("CriOS"): `} :{" "}
+        {userAgentString.includes("CriOS").toString()} */}
       </h1>
     </div>
   );
